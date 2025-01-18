@@ -7,13 +7,18 @@ import { getFirebaseConfig } from '../config/FirebaseConfig'
 const db = getFirebaseConfig();
 
 // props
-import { LoginAuthProps } from "../interfaces/props";
+import {
+    LoginAuthProps,
+    LoginErrorProps
+} from "../interfaces/props";
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
 
     let detailsSnaphot = { username: "", password: "" }
     const [formDetails, setFormDetails] = useState<LoginAuthProps>(detailsSnaphot)
+    let errorSnapshot: LoginErrorProps = { isError: false, error: "no_error" }
+    const [error, setError] = useState<LoginErrorProps>(errorSnapshot)
 
     const handleDetails = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.id === "username") {
@@ -25,35 +30,48 @@ const Login: React.FC = () => {
             setFormDetails(detailsSnaphot);
         }
     }
-
     // submit handler
     const handleSubmit = async () => {
-        detailsSnaphot.username.length > 0
-            && detailsSnaphot.password.length > 0 ?
-            console.log(formDetails)
-            :
-            console.log("missing")
-
-        const querySnaphot = await getDocs(collection(db, "my_devices"));
-        const items = querySnaphot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-
-        checkUser(items)
+        if (detailsSnaphot.username.length > 0
+            && detailsSnaphot.password.length > 0) {
+            try {
+                console.log("d")
+                const querySnaphot = await getDocs(collection(db, "my_devices"));
+                const items = querySnaphot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+                checkUser(items)
+            } catch (error) {
+                console.log(`Error occured - ${error}`)
+            }
+        }
+        else {
+            // validation handle 
+            errorSnapshot.isError = true;
+            errorSnapshot.error = "missing_details";
+            setError({ ...errorSnapshot });
+        }
     }
 
     // login handler
     const checkUser = (items: any[]) => {
-        if (items.map((item) => { item.username === formDetails.username })) {
-            // user found
-            items.map((user) => {
-                if (user.username === formDetails.username
-                    && user.password === formDetails.password) {
-                    localStorage.setItem('isAuthorized', JSON.stringify(true))
-                    console.log(`Found user is - ${formDetails.username} ${formDetails.password}`)
-                }
-            })
+        if (items.some(item => item.username === formDetails.username)) {
+            // user found on username
+            if (items.some(item => item.password === formDetails.password)) {
+                localStorage.setItem('isAuthorized', JSON.stringify(true));
+                navigate('/');
+            }
+            else {
+                // validation handle
+                errorSnapshot.isError = true;
+                errorSnapshot.error = "invalid password";
+                setError({ ...errorSnapshot });
+            }
         }
-        // redirecting to the home page
-        navigate('/');
+        else {
+            // validation handle
+            errorSnapshot.isError = true;
+            errorSnapshot.error = "invalid username";
+            setError({ ...errorSnapshot });
+        }
     }
 
     return (
@@ -63,6 +81,7 @@ const Login: React.FC = () => {
                 type="text"
                 name=""
                 id="username"
+                required={true}
                 onChange={handleDetails} />
 
             <input
@@ -73,6 +92,17 @@ const Login: React.FC = () => {
                 onChange={handleDetails} />
 
             <button onClick={handleSubmit}>Login</button>
+
+            {error.isError ? (
+                <>
+                    <div>
+                        <small style={{ color: 'red' }}>{error.error}</small>
+                    </div>
+                </>
+            ) :
+                null
+            }
+
         </>
     )
 }
