@@ -12,10 +12,6 @@ const Auth: React.FC = () => {
     const location = useLocation();
     const { action } = location.state as AuthPageProps
 
-    useEffect(() => {
-        console.log(action)
-    }, [])
-
     return (
         <>
             {/*  */}
@@ -26,7 +22,8 @@ const Auth: React.FC = () => {
                 action === 'register' ?
                     <Register />
                     :
-                    ""
+                    // handle error
+                    null
             }
         </>
     )
