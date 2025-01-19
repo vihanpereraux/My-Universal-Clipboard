@@ -35,7 +35,6 @@ const Login: React.FC = () => {
         if (detailsSnaphot.username.length > 0
             && detailsSnaphot.password.length > 0) {
             try {
-                console.log("d")
                 const querySnaphot = await getDocs(collection(db, "my_devices"));
                 const items = querySnaphot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
                 checkUser(items)
@@ -57,6 +56,7 @@ const Login: React.FC = () => {
             // user found on username
             if (items.some(item => item.password === formDetails.password)) {
                 localStorage.setItem('isAuthorized', JSON.stringify(true));
+                localStorage.setItem('currentUser', JSON.stringify(formDetails.username));
                 navigate('/');
             }
             else {
