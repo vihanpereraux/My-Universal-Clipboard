@@ -17,3 +17,8 @@ export interface RegisterAuthProps {
 export interface AuthPageProps {
     action: string
 }
+
+export interface MessageProps {
+    sender: string,
+    text: string
+}

@@ -7,14 +7,15 @@
 
 ._heading {
     width: 100%;
-    height: 8vh;
+    height: 10vh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 ._heading h3 {
-    font-size: 2.8vw;
+    /* text-decoration: underline; */
+    font-size: 2vw;
     font-weight: 450;
     text-transform: uppercase;
     font-family: 'IBM Plex Mono';
@@ -22,10 +23,58 @@
 }
 
 ._chat_space {
-    height: 78vh;
-    border: 1px solid yellow;
+    overflow-y: auto;
+    height: 76vh;
+    /* border: 1px solid yellow; */
     padding-left: 150px;
     padding-right: 150px;
+    /* padding-top: 30px; */
+}
+
+._bubble {
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-right: 10px;
+    font-family: 'IBM Plex Mono';
+}
+
+._bubble img {
+    object-fit: fill;
+    aspect-ratio: 1;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+._bubble table {
+    /* border: 1px solid red !important; */
+}
+
+._bubble table td:nth-child(1) {
+    display: flex;
+}
+
+._bubble table td:nth-child(2) {
+    padding-left: 15px;
+}
+
+._bubble button {
+    border: none;
+    opacity: 1;
+    margin-top: 10px;
+}
+
+._sender {
+    color: green;
+    font-size: 15px;
+}
+
+._text {
+    color: white;
+    margin-top: 8px;
+    font-size: 18px;
+    line-height: 1.5;
 }
 
 ._message_box {
@@ -34,28 +83,32 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* border: 1px solid orangered; */
 }
 
 ._message_box button {
     opacity: 1;
-    height: 45px;
+    height: 55px;
     border-radius: 8px;
     text-transform: capitalize;
     margin-left: 10px;
-    width: 75px;
+    width: 90px;
+    font-size: 16px;
     text-transform: uppercase;
     font-weight: 450;
     font-family: 'IBM Plex Mono';
-    background-color: purple;
+    background-color: rgb(196, 0, 196);
 }
 
 ._message_box input {
     outline: 0;
-    height: 45px;
+    height: 55px;
     border-radius: 8px;
     border: none;
     width: 50vw;
     font-family: 'IBM Plex Mono';
+    font-size: 18px;
+    padding-left: 15px;
 }
 
 ._message_box input::placeholder {
