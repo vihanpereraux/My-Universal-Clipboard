@@ -1,0 +1,65 @@
+._wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: block;
+}
+
+._heading {
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+._heading h3 {
+    font-size: 2.8vw;
+    font-weight: 450;
+    text-transform: uppercase;
+    font-family: 'IBM Plex Mono';
+    margin: 0;
+}
+
+._chat_space {
+    height: 78vh;
+    border: 1px solid yellow;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+._message_box {
+    width: 100%;
+    height: 14vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+._message_box button {
+    opacity: 1;
+    height: 45px;
+    border-radius: 8px;
+    text-transform: capitalize;
+    margin-left: 10px;
+    width: 75px;
+    text-transform: uppercase;
+    font-weight: 450;
+    font-family: 'IBM Plex Mono';
+    background-color: purple;
+}
+
+._message_box input {
+    outline: 0;
+    height: 45px;
+    border-radius: 8px;
+    border: none;
+    width: 50vw;
+    font-family: 'IBM Plex Mono';
+}
+
+._message_box input::placeholder {
+    color: white;
+    opacity: .6 !important;
+    font-family: 'IBM Plex Mono';
+}
