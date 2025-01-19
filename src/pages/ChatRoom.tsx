@@ -58,15 +58,28 @@ const ChatRoom: React.FC = () => {
     }
 
     const onSumbit = async () => {
+        const date = new Date();
         let snapShot = {
             sender_username: JSON.parse(localStorage.getItem('currentUser') as string),
             text: value,
-            timestamp: new Date()
+            timestamp: date
         }
 
         try {
             await addDoc(collection(db, "chat_room"), { ...snapShot });
-            localMessagesArr.push(snapShot);
+
+            console.log(`date.getSeconds() - ${date.getSeconds()}`)
+
+            let snapShot2 = {
+                sender_username: JSON.parse(localStorage.getItem('currentUser') as string),
+                text: value,
+                timestamp: {
+                    seconds: date.getTime() / 1000,
+                    nanoseconds: 0
+                }
+            }
+
+            localMessagesArr.push(snapShot2);
 
             setMesaages(localMessagesArr)
         } catch (error) {

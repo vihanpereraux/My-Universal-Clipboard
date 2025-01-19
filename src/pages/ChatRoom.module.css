@@ -26,11 +26,8 @@
     overflow-y: auto;
     height: 76vh;
     /* border: 1px solid yellow; */
-    padding-left: 150px;
-    padding-right: 150px;
-    /* padding-top: 30px; */
-    /* display: flex; */
-    /* flex-direction: column-reverse !important; */
+    padding-left: 20vw;
+    padding-right: 20vw;
 }
 
 ._bubble {
