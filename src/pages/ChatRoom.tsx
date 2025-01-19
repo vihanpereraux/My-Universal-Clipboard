@@ -5,7 +5,7 @@ import React,
 } from "react";
 
 // firebase
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, addDoc } from "firebase/firestore";
 import { getFirebaseConfig } from "../config/FirebaseConfig";
 const db = getFirebaseConfig();
 
@@ -21,8 +21,11 @@ import { MessageProps } from "../interfaces/props";
 // stylesheet
 import Styles from './ChatRoom.module.css';
 
+let localMessagesArr: any[] = [];
+
 const ChatRoom: React.FC = () => {
-    const [messages, setMesaages] = useState<MessageProps[]>();
+    const [value, setValue] = useState<string>("");
+    const [messages, setMesaages] = useState<MessageProps[]>([]);
 
     // 
     const getMessages = async () => {
@@ -31,18 +34,57 @@ const ChatRoom: React.FC = () => {
 
         // const querySnapshot = await getDocs(collection(db, "chat_room"));
         const items: any[] = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+        // console.log(items)
+
+        localMessagesArr = items;
 
         const temp: MessageProps[] = []
 
         items.map((item) => {
             temp.push(
                 {
-                    sender: item.sender_username,
-                    text: item.text
+                    sender_username: item.sender_username,
+                    text: item.text,
+                    timestamp: item.timestamp
                 })
         });
 
         setMesaages(temp);
+    }
+
+    const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // console.log(event.target.value)
+        setValue(event.target.value);
+    }
+
+    const onSumbit = async () => {
+        let snapShot = {
+            sender_username: JSON.parse(localStorage.getItem('currentUser') as string),
+            text: value,
+            timestamp: new Date()
+        }
+
+        try {
+            await addDoc(collection(db, "chat_room"), { ...snapShot });
+            localMessagesArr.push(snapShot);
+
+            setMesaages(localMessagesArr)
+        } catch (error) {
+            console.log(`Error - ${error}`)
+        }
+    }
+
+    // seconds convertion
+    const convertion = (seconds: number) => {
+        const date = new Date(seconds * 1000)
+        let minutes: string;
+        if (date.getUTCMinutes() < 10) {
+            minutes = "0" + date.getUTCMinutes().toString()
+        }
+        else {
+            minutes = date.getUTCMinutes().toString()
+        }
+        return (date.getUTCHours().toString() + " : " + minutes);
     }
 
     // fetch data
@@ -57,16 +99,23 @@ const ChatRoom: React.FC = () => {
                 <div className={Styles._heading}>
                     <h3>Public Chat Room</h3>
                 </div>
-                <div className={Styles._chat_space}>
-                    {messages?.map((message, index) => (
+
+                <div
+                    className={Styles._chat_space}
+                    ref={(el) => { if (el) el.scrollTop = el.scrollHeight; }}>
+
+                    {messages.map((message, index) => (
                         <div className={Styles._bubble} key={index}>
-                            <Bubble sender={message.sender} text={message.text} />
+                            <Bubble
+                                timestamp={convertion(message.timestamp.seconds)}
+                                sender_username={message.sender_username}
+                                text={message.text} />
                         </div>
                     ))}
                 </div>
                 <div className={Styles._message_box}>
-                    <input placeholder="Type your message here " />
-                    <Button variant="contained">Send</Button>
+                    <input onChange={handleInput} placeholder="Type your message here " />
+                    <Button onClick={onSumbit} variant="contained">Send</Button>
                 </div>
             </div>
         </>

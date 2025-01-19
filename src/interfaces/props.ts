@@ -18,7 +18,18 @@ export interface AuthPageProps {
     action: string
 }
 
+interface TimeStampProps {
+    seconds: number,
+    nanoseconds: number
+}
 export interface MessageProps {
-    sender: string,
-    text: string
+    sender_username: string,
+    text: string,
+    timestamp: TimeStampProps
+}
+
+export interface BubbleProps {
+    sender_username: string,
+    text: string,
+    timestamp: string
 }
