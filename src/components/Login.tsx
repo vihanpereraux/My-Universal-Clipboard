@@ -79,35 +79,44 @@ const Login: React.FC = () => {
 
     return (
         <>
-            <input
-                className={Styles._input}
-                placeholder="Enter Username"
-                type="text"
-                name=""
-                id="username"
-                required={true}
-                onChange={handleDetails} />
+            <div className={Styles._form_wrapper}>
+                <div className={Styles._form_element}>
+                    <h3>[ Login ]</h3>                    
 
-            <input
-                className={Styles._input}
-                placeholder="Enter Password"
-                type="password"
-                name=""
-                id="password"
-                onChange={handleDetails} />
+                    <input
+                        className={Styles._input}
+                        placeholder="Enter Username"
+                        type="text"
+                        name=""
+                        id="username"
+                        required={true}
+                        onChange={handleDetails} />
 
-            <button onClick={handleSubmit}>Login</button>
+                    <br />
 
-            {error.isError ? (
-                <>
-                    <div>
-                        <small style={{ color: 'red' }}>{error.error}</small>
-                    </div>
-                </>
-            ) :
-                null
-            }
+                    <input
+                        className={Styles._input}
+                        placeholder="Enter Password"
+                        type="password"
+                        name=""
+                        id="password"
+                        onChange={handleDetails} />
 
+                    <br />
+
+                    <button onClick={handleSubmit}>Login</button>
+
+                    {error.isError ? (
+                        <>
+                            <div>
+                                <small style={{ color: 'red' }}>{error.error}</small>
+                            </div>
+                        </>
+                    ) :
+                        null
+                    }
+                </div>
+            </div>
         </>
     )
 }
