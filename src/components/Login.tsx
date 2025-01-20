@@ -12,6 +12,9 @@ import {
     LoginErrorProps
 } from "../interfaces/props";
 
+// stylesheet
+import Styles from './Auth.module.css';
+
 const Login: React.FC = () => {
     const navigate = useNavigate();
 
@@ -77,6 +80,7 @@ const Login: React.FC = () => {
     return (
         <>
             <input
+                className={Styles._input}
                 placeholder="Enter Username"
                 type="text"
                 name=""
@@ -85,6 +89,7 @@ const Login: React.FC = () => {
                 onChange={handleDetails} />
 
             <input
+                className={Styles._input}
                 placeholder="Enter Password"
                 type="password"
                 name=""
