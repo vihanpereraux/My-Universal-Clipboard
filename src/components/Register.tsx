@@ -103,7 +103,18 @@ const Register: React.FC<AuthPageProps> = ({ action }) => {
                         onChange={handleDetails}
                         id="password" />
 
-                    <button onClick={handleSubmit}>Register</button>
+                    {localStorage.getItem('isAuthorized') === null ||
+                        JSON.parse(localStorage.getItem('isAuthorized') as string) === false
+                        ?
+                        (
+                            <button
+                                disabled={false}
+                                onClick={handleSubmit}>Login</button>
+                        ) :
+                        <button
+                            disabled={true}
+                            onClick={handleSubmit}>Login</button>
+                    }
 
                     {error.isError ? (
                         <>
