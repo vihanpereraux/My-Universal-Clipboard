@@ -9,13 +9,14 @@ const db = getFirebaseConfig();
 // props
 import {
     LoginAuthProps,
-    LoginErrorProps
+    LoginErrorProps,
+    AuthPageProps
 } from "../interfaces/props";
 
 // stylesheet
 import Styles from './Auth.module.css';
 
-const Login: React.FC = () => {
+const Login: React.FC<AuthPageProps> = ({ action }) => {
     const navigate = useNavigate();
 
     let detailsSnaphot = { username: "", password: "" }
@@ -81,7 +82,7 @@ const Login: React.FC = () => {
         <>
             <div className={Styles._form_wrapper}>
                 <div className={Styles._form_element}>
-                    <h3>[ Login ]</h3>                    
+                    <h3>[ {action} ]</h3>
 
                     <input
                         className={Styles._input}
