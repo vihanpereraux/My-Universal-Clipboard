@@ -46,10 +46,6 @@ const Register: React.FC<AuthPageProps> = ({ action }) => {
         const querySnaphot = await getDocs(collection(db, "my_devices"));
         const items: any[] = querySnaphot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
 
-
-        // console.log(items.some(item => (item.username === formDetails.username)))
-        // console.log(items.some(item => (item.devicename === formDetails.devicename)))
-
         const isUsernameFound = items.some(item => (item.username === formDetails.username))
         const isDevicenameFound = items.some(item => (item.devicename === formDetails.devicename))
 
