@@ -20,6 +20,13 @@
     text-align: center;
 }
 
+._element p {
+    font-size: 23px;
+    margin-bottom: 30px;
+    font-family: 'IBM Plex Mono';
+    text-align: center;
+}
+
 ._element button {
     background-color: rgb(169, 1, 169);
     font-family: 'IBM Plex Mono';
@@ -27,7 +34,7 @@
     padding-left: 20px;
     padding-right: 20px;
     font-size: 20px;
-    height: 55px;
+    height: 60px;
     border: none;
     outline: 0;
     border-radius: 8px;

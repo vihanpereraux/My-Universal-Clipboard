@@ -30,10 +30,15 @@ const Home: React.FC = () => {
                     <h3>[ Main Menu ]</h3>
 
                     {isAuthenticated ?
-                        (<button
-                            onClick={() => {
-                                navigate('/chat-room')
-                            }}>Public Chat Room</button>)
+                        (<>
+                            <p>Welcome to the Hell
+                                {"\u00A0"}
+                                {JSON.parse(localStorage.getItem('currentUser') as string)}</p>
+                            <button
+                                onClick={() => {
+                                    navigate('/chat-room')
+                                }}>Public Chat Room</button>
+                        </>)
                         : (
                             <>
                                 {/* selection */}

@@ -105,7 +105,17 @@ const Login: React.FC<AuthPageProps> = ({ action }) => {
 
                     <br />
 
-                    <button onClick={handleSubmit}>Login</button>
+                    {localStorage.getItem('isAuthorized') === null
+                        ?
+                        (
+                            <button
+                                disabled={false}
+                                onClick={handleSubmit}>Login</button>
+                        ) :
+                        <button
+                            disabled={true}
+                            onClick={handleSubmit}>Login</button>
+                    }
 
                     {error.isError ? (
                         <>
