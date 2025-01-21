@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 
 // props
@@ -16,11 +16,11 @@ const Auth: React.FC = () => {
         <>
             {/*  */}
             {action === 'login' ?
-                <Login />
+                <Login action={action} />
                 :
                 // 
                 action === 'register' ?
-                    <Register />
+                    <Register action={action} />
                     :
                     // handle error
                     null

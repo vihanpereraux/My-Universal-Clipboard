@@ -1,0 +1,32 @@
+._home_wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+._home_wrapper h3 {
+    color: white;
+    font-size: 30px;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 450;
+    font-family: 'IBM Plex Mono';
+    text-align: center;
+    margin: 40px;
+}
+
+._element button {
+    background-color: rgb(169, 1, 169);
+    font-family: 'IBM Plex Mono';
+    color: white;
+    width: 170px;
+    font-size: 20px;
+    height: 55px;
+    border: none;
+    outline: 0;
+    border-radius: 8px;
+    font-weight: 450;
+    margin-left: 8px;
+    margin-right: 8px;
+}
