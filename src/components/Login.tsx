@@ -105,7 +105,8 @@ const Login: React.FC<AuthPageProps> = ({ action }) => {
 
                     <br />
 
-                    {localStorage.getItem('isAuthorized') === null
+                    {localStorage.getItem('isAuthorized') === null ||
+                        JSON.parse(localStorage.getItem('isAuthorized') as string) === false
                         ?
                         (
                             <button
